@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '2.7.6'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'az.ShF'
+//version = '1.0.0'
+
+java {
+    sourceCompatibility = '11'
+}
+//java {
+//    toolchain {
+//        languageVersion = JavaLanguageVersion.of(11)
+//    }
+//}
+
+// indi heleki spring 3.2.5 ve java 17 ile isleyir
+// //    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.5.0'
+// bu kitabxana ile 3 ve 17 ile isleyirdi
+// bunu duzeldecemki swagger 2.** ve java 11 ve 1.8 ile isleyecek
+// //    implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.6.14'
+// bu kitabxana ole ise 2.7.6 ve 11 ile isledi
+// indi 1.8 ile yoxlayacam isleyir ya yox
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2021.0.3")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.5.0'
+
+    implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.6.14'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+

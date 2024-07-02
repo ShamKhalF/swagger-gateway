@@ -1,0 +1,46 @@
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: swg-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+#          bu routes-ler olmadan da isledi swagger-ler
+#      routes:
+#        - id: swg1
+#          uri: http://localhost:8084
+#          predicates:
+#            - Path=/swagger-test-1/**
+#          filters:
+#            - RewritePath=/swagger-test-1/?(?<segment>.*), /${segment}
+#        - id: swg2
+#          uri: http://localhost:8082
+#          predicates:
+#            - Path=/swagger-test-2/**
+#          filters:
+#            - RewritePath=/swagger-test-2/?(?<segment>.*), /${segment}
+server:
+  port: 9999
+
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui/index.html
+#    config-url: /v3/api-docs/swagger-config
+#    urls:
+#      - name: swagger-test-1
+#        url: http://localhost:8084/v3/api-docs
+#      - name: swagger-test-2
+#        url: http://localhost:8082/v3/api-docs
+    urls:
+      - name: swagger-test-1
+        url: http://localhost:8080/swagger-test-1/v3/api-docs
+      - name: swagger-test-2
+        url: http://localhost:8080/swagger-test-2/v3/api-docs
+
